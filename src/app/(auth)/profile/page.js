@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import ProfileForm from "./ProfileForm";
 import { getCurrentUser } from "@/lib/auth";
 
