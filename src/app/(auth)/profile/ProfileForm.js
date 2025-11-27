@@ -34,15 +34,17 @@ export default function ProfileForm({ user }) {
     <div className="min-h-screen bg-gray-100 flex justify-center items-center px-4">
       <div className="bg-white shadow-md rounded-2xl p-10 max-w-lg w-full border border-gray-200">
         <div className="text-center mb-6">
-          <div className="w-24 h-24 mx-auto rounded-full bg-gray-300"></div>
-          <h2 className="text-2xl font-bold text-gray-900 mt-4">{user.name}</h2>
-          <p className="text-gray-600 text-sm">{user?.email}</p>
+          <div className="w-24 h-24 mx-auto rounded-full bg-green-500 flex items-center justify-center text-4xl text-white font-bold">
+            {user.name?.charAt(0).toUpperCase() || "U"}
+          </div>
         </div>
 
         <div className="space-y-4">
           <div className="bg-gray-50 p-4 rounded-lg border border-gray-200">
             <p className="text-gray-700">
-              <strong>Username:</strong> {user?.username}
+              <strong>Username:</strong> {user?.name}
+              <br/>
+              <strong>Email:</strong> {user?.email}
             </p>
           </div>
 
