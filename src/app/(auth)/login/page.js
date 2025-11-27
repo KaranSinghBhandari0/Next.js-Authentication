@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 "use client";
 
 import { useRouter } from "next/navigation";
@@ -5,9 +6,8 @@ import React, { useState } from "react";
 import toast from "react-hot-toast";
 
 export default function Login() {
-
   const router = useRouter();
- 
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,7 +23,7 @@ export default function Login() {
     });
     const data = await res.json();
 
-    if(data.success) {
+    if (data.success) {
       toast.success(data?.message);
       router.push("/");
       router.refresh();
@@ -35,6 +35,10 @@ export default function Login() {
     setLoading(false);
   };
 
+  const handleGoogleLogin = () => {
+    window.location.href = "/api/auth/google";
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100 px-4">
       <div className="w-full max-w-md bg-white shadow-lg rounded-2xl p-8 border border-gray-200">
@@ -43,7 +47,6 @@ export default function Login() {
         </h2>
 
         <form className="space-y-5" onSubmit={handleLogin}>
-          
           <div>
             <label className="text-gray-700 text-sm">Email</label>
             <input
@@ -72,18 +75,31 @@ export default function Login() {
             type="submit"
             disabled={loading}
             className={`w-full py-2 rounded-lg font-semibold text-white transition
-              ${loading ? "bg-blue-400 cursor-not-allowed" : "bg-blue-600 hover:bg-blue-700"}
+              ${
+                loading
+                  ? "bg-blue-400 cursor-not-allowed"
+                  : "bg-blue-600 hover:bg-blue-700"
+              }
             `}
           >
             {loading ? "Logging in..." : "Login"}
           </button>
 
-          <p className="text-center text-sm text-gray-600">
-            Don&apos;t have an account?{" "}
-            <span className="text-blue-600 cursor-pointer hover:underline">
-              Sign up
-            </span>
-          </p>
+          <p className="text-center text-gray-600">or</p>
+
+          {/* Google Login */}
+          <button
+            type="button"
+            onClick={handleGoogleLogin}
+            className="flex items-center justify-center gap-2 px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-100 transition w-full"
+          >
+            <img
+              src="https://developers.google.com/identity/images/g-logo.png"
+              alt="Google logo"
+              className="w-5 h-5"
+            />
+            <span>Login with Google</span>
+          </button>
         </form>
       </div>
     </div>

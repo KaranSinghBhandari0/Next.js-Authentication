@@ -14,9 +14,17 @@ export async function login(req) {
     const body = await req.json();
     const { email, password } = body;
 
+    if(!password || !email) {
+      return errorResponse({ message: "Email and password are required" });
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return errorResponse({ message: "User not found" });
+    }
+
+    if(email && !user.password) {
+      return errorResponse({ message: "You can login with google or reset your password" });
     }
 
     const isPasswordMatch = await bcrypt.compare(password, user.password);
